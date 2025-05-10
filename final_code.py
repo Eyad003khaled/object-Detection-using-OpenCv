@@ -234,15 +234,20 @@ def sorting(arduinolist):
 
 while True:
     go = arduino.getData()
-    if go[0]=='9':
-        arduinolist=vision()
-    arduinolist=["cb","sl","sl","cl","cb","sb","cl","sb"]
-    print(arduinolist)
-    final = sorting(arduinolist)
-    print(final)
-    cv2.waitKey(3000)
-    arduino.sendData(final)
-    cv2.waitKey(100)
-    print("Done")
-    while True:
-        print(arduino.getData())
+    if go[0] == '9':
+        arduinolist = vision()
+
+        # Only use default list if vision() returns None or an empty list
+        if not arduinolist:
+            arduinolist = ["cb", "sl", "sl", "cl", "cb", "sb", "cl", "sb"]
+
+        print(arduinolist)
+        final = sorting(arduinolist)
+        print(final)
+        cv2.waitKey(3000)
+        arduino.sendData(final)
+        cv2.waitKey(100)
+        print("Done")
+
+        while True:
+            print(arduino.getData())
